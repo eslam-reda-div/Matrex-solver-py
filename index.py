@@ -96,19 +96,3 @@ rows = st.number_input("أدخل عدد الصفوف (المعادلات):", min
 columns = st.number_input("أدخل عدد الأعمدة (المتغيرات + 1):", min_value=2, max_value=10, value=4)
 
 # إدخال قيم المصفوفة من المستخدم باستخدام شكل يشبه الجدول
-st.write("أدخل قيم المصفوفة:")
-matrix = []
-for i in range(int(rows)):
-    row = []
-    cols = st.columns(int(columns))  # إنشاء أعمدة حسب عدد الأعمدة المطلوبة
-    for j in range(int(columns)):
-        with cols[j]:  # وضع كل عنصر إدخال في مكانه المناسب في الجدول
-            val = st.number_input(f"الصف {i+1}, العمود {j+1}", value=0.0, step=1.0, key=f"input_{i}_{j}")
-            row.append(val)
-    matrix.append(row)
-
-# عرض المصفوفة المدخلة وتحليلها عند الضغط على زر "حل"
-if st.button("حل"):
-    solution_text = solve_matrix(matrix)
-    st.subheader("الناتج:")
-    st.text(solution_text)
