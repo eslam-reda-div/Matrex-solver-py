@@ -98,6 +98,18 @@ def solve_matrix(matrix):
 # واجهة المستخدم باستخدام Streamlit
 st.title("حل نظام المعادلات الخطية باستخدام Row Echelon Form")
 
+button_style = """
+    <style>
+    .stButton > button {
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+    }
+    </style>
+    """
+
+st.markdown(button_style, unsafe_allow_html=True)
+
 # الحصول على عدد الصفوف والأعمدة من المستخدم
 rows = st.number_input("أدخل عدد الصفوف (المعادلات):", min_value=1, max_value=10, value=3)
 columns = st.number_input("أدخل عدد الأعمدة (المتغيرات + 1):", min_value=2, max_value=10, value=4)
