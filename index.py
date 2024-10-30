@@ -8,7 +8,6 @@ def solve_matrix(matrix):
         rows, columns = matrix.shape
         solution_text = "حل النظام باستخدام تحويل الصفوف (Row Echelon Form):\n\n"
         leading_row = 0  # متغير لتتبع الصف الرئيسي
-        step_matrices = []  # لتخزين حالة المصفوفة بعد كل خطوة
 
         # التحقق من وجود تناقضات أولية في النظام
         for i in range(rows):
@@ -34,23 +33,23 @@ def solve_matrix(matrix):
             # تبديل الصفوف لجعل الصف ذو العنصر الرئيسي في الموقع الصحيح
             if pivot_row != leading_row:
                 matrix[[leading_row, pivot_row]] = matrix[[pivot_row, leading_row]]
-                solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}\n\n"
-                step_matrices.append(matrix.copy())  # تخزين حالة المصفوفة
+                solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}\n"
+                solution_text += f"المصفوفة بعد التبديل:\n{matrix}\n\n"
 
             # جعل العنصر الرئيسي يساوي 1
             lead_element = matrix[leading_row, col]
             if lead_element != 0:
                 matrix[leading_row] /= lead_element
-                solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f} لجعل العنصر الرئيسي في العمود {col + 1} يساوي 1\n\n"
-                step_matrices.append(matrix.copy())  # تخزين حالة المصفوفة
+                solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f} لجعل العنصر الرئيسي في العمود {col + 1} يساوي 1\n"
+                solution_text += f"المصفوفة بعد القسمة:\n{matrix}\n\n"
 
             # تصفير العناصر أسفل العنصر الرئيسي
             for i in range(leading_row + 1, rows):
                 factor = matrix[i, col]
                 matrix[i] -= factor * matrix[leading_row]
                 if factor != 0:
-                    solution_text += f"تم ضرب جميع عناصر الصف {leading_row + 1} في {factor:.2f} وطرحها من الصف {i + 1} لتصفير العنصر في العمود {col + 1}\n\n"
-                    step_matrices.append(matrix.copy())  # تخزين حالة المصفوفة
+                    solution_text += f"تم ضرب جميع عناصر الصف {leading_row + 1} في {factor:.2f} وطرحها من الصف {i + 1} لتصفير العنصر في العمود {col + 1}\n"
+                    solution_text += f"المصفوفة بعد التصغير:\n{matrix}\n\n"
 
             leading_row += 1
 
@@ -67,8 +66,8 @@ def solve_matrix(matrix):
                     factor = matrix[i, col]
                     matrix[i] -= factor * matrix[row]
                     if factor != 0:
-                        solution_text += f"تم ضرب جميع عناصر الصف {row + 1} في {factor:.2f} وطرحها من الصف {i + 1} لتصفير العنصر في العمود {col + 1}\n\n"
-                        step_matrices.append(matrix.copy())  # تخزين حالة المصفوفة
+                        solution_text += f"تم ضرب جميع عناصر الصف {row + 1} في {factor:.2f} وطرحها من الصف {i + 1} لتصفير العنصر في العمود {col + 1}\n"
+                        solution_text += f"المصفوفة بعد التصغير:\n{matrix}\n\n"
 
         # استخراج الحلول النهائية
         solutions = np.zeros(columns - 1)
@@ -84,9 +83,9 @@ def solve_matrix(matrix):
         for index, sol in enumerate(solutions):
             solution_text += f"x{index + 1} = {sol:.2f}\n"
 
-        return solution_text, step_matrices
+        return solution_text
     except Exception as e:
-        return f"حدث خطأ: {str(e)}", None
+        return f"حدث خطأ: {str(e)}"
 
 
 # واجهة المستخدم باستخدام Streamlit
@@ -110,12 +109,6 @@ for i in range(int(rows)):
 
 # عرض المصفوفة المدخلة وتحليلها عند الضغط على زر "حل"
 if st.button("حل"):
-    solution_text, step_matrices = solve_matrix(matrix)
+    solution_text = solve_matrix(matrix)
     st.subheader("الناتج:")
     st.text(solution_text)
-    
-    if step_matrices:
-        st.subheader("المصفوفة بعد كل خطوة:")
-        for i, step_matrix in enumerate(step_matrices):
-            st.write(f"الخطوة {i + 1}:")
-            st.write(step_matrix)
