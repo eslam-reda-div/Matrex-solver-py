@@ -276,7 +276,7 @@ def invert_matrix(matrix):
                     factor = augmented_matrix[i, col]
                     augmented_matrix[i] -= factor * augmented_matrix[leading_row]
                     if factor != 0:
-                        solution_text += f"تم طرح {factor:.2f} * الصف {leading_row + 1} من الصف {i + 1}\n"
+                        solution_text += f"تم طرح {factor:.2f} مضروب في الصف {leading_row + 1} من الصف {i + 1}\n"
                         solution_text += format_matrix_2(augmented_matrix) + "\n"
 
             leading_row += 1
