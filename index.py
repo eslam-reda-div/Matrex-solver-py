@@ -362,6 +362,6 @@ elif page == "عكس المصفوفة":
         if inverse_matrix is not None:
             st.text(solution_text)
             st.text("المصفوفة المعكوسة:")
-            st.text(format_matrix_2(inverse_matrix))
+            st.text(format_matrix(inverse_matrix))
         else:
             st.text(solution_text)
