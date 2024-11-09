@@ -8,6 +8,21 @@ def format_matrix(matrix):
         formatted_text += "[" + " ".join(f"{elem: .2f}" for elem in row)+ "]" + "\n"
     return formatted_text
 
+def format_matrix_2(matrix):
+    formatted_text = ""
+    for row in matrix:
+        mid_index = len(row) // 2  # Calculate the middle index
+        formatted_row = []
+
+        for i, elem in enumerate(row):
+            formatted_row.append(f"{elem: .2f}")
+            if i == mid_index - 1:  # Add '|' after the middle item if it exists
+                formatted_row.append("|")
+
+        formatted_text += "[" + " ".join(formatted_row) + "]" + "\n"
+    return formatted_text
+
+
 # دالة حل النظام باستخدام تحويل الصفوف إلى Row Echelon Form
 def solve_matrix(matrix):
     try:
@@ -126,13 +141,13 @@ def invert_matrix(matrix):
             if pivot_row != leading_row:
                 augmented_matrix[[leading_row, pivot_row]] = augmented_matrix[[pivot_row, leading_row]]
                 solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}\n"
-                solution_text += format_matrix(augmented_matrix) + "\n"
+                solution_text += format_matrix_2(augmented_matrix) + "\n"
 
             lead_element = augmented_matrix[leading_row, col]
             if lead_element != 0:
                 augmented_matrix[leading_row] /= lead_element
                 solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f}\n"
-                solution_text += format_matrix(augmented_matrix) + "\n"
+                solution_text += format_matrix_2(augmented_matrix) + "\n"
 
             for i in range(rows):
                 if i != leading_row:
@@ -140,7 +155,7 @@ def invert_matrix(matrix):
                     augmented_matrix[i] -= factor * augmented_matrix[leading_row]
                     if factor != 0:
                         solution_text += f"تم طرح {factor:.2f} * الصف {leading_row + 1} من الصف {i + 1}\n"
-                        solution_text += format_matrix(augmented_matrix) + "\n"
+                        solution_text += format_matrix_2(augmented_matrix) + "\n"
 
             leading_row += 1
             if leading_row == rows:
@@ -347,6 +362,6 @@ elif page == "عكس المصفوفة":
         if inverse_matrix is not None:
             st.text(solution_text)
             st.text("المصفوفة المعكوسة:")
-            st.text(format_matrix(inverse_matrix))
+            st.text(format_matrix_2(inverse_matrix))
         else:
             st.text(solution_text)
