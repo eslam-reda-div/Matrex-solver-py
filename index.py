@@ -4,9 +4,10 @@ import numpy as np
 # دالة بتحول المصفوفة لنص منسق من غير أقواس زيادة 
 def format_matrix(matrix):
     try:
-        formatted_text = ""
+        formatted_text = r"$$\begin{bmatrix}"
         for row in matrix:
-            formatted_text += "[" + " ".join(f"{elem: .2f}" for elem in row)+ "]" + "\n"
+            formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
+        formatted_text += r"\end{bmatrix}$$"
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
@@ -14,17 +15,16 @@ def format_matrix(matrix):
 # دالة بتحول المصفوفة لنص منسق وبتحط خط عمودي في النص
 def format_matrix_2(matrix):
     try:
-        formatted_text = ""
+        n = len(matrix[0])
+        mid_index = n // 2
+
+        # Set up LaTeX array with vertical bar in the middle column
+        formatted_text = r"$$\begin{array}{" + "c" * mid_index + "|" + "c" * (n - mid_index) + "}"
+        
         for row in matrix:
-            mid_index = len(row) // 2  # بنحسب النص بتاع الصف
-            formatted_row = []
-
-            for i, elem in enumerate(row):
-                formatted_row.append(f"{elem: .2f}")
-                if i == mid_index - 1:  # بنحط الخط العمودي | بعد العنصر اللي في النص
-                    formatted_row.append("|")
-
-            formatted_text += "[" + " ".join(formatted_row) + "]" + "\n"
+            formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
+        
+        formatted_text += r"\end{array}$$"
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
@@ -361,9 +361,9 @@ try:
                 if "خطأ" in solution_text:
                     st.error(solution_text)
                 else:
-                    st.text(solution_text)
+                    st.markdown(solution_text, unsafe_allow_html=true)
             else:
-                st.text(solution_text)
+                st.markdown(solution_text, unsafe_allow_html=true)
 
     # صفحة جمع المصفوفات
     elif page == "جمع المصفوفات":
@@ -408,7 +408,8 @@ try:
             if isinstance(result, str):
                 st.error(result)
             else:
-                st.text(format_matrix(result))
+                # st.text(format_matrix(result))
+                st.markdown(format_matrix(result), unsafe_allow_html=true)
 
     # صفحة طرح المصفوفات
     elif page == "طرح المصفوفات":
@@ -453,7 +454,8 @@ try:
             if isinstance(result, str):
                 st.error(result)
             else:
-                st.text(format_matrix(result))
+                # st.text(format_matrix(result))
+                st.markdown(format_matrix(result), unsafe_allow_html=true)
 
     # صفحة ضرب المصفوفات
     elif page == "ضرب المصفوفات":
@@ -505,7 +507,8 @@ try:
             if isinstance(result, str):
                 st.error(result)
             else:
-                st.text(format_matrix(result))
+                # st.text(format_matrix(result))
+                st.markdown(format_matrix(result), unsafe_allow_html=true)
                 
     # صفحة ترانسبوز المصفوفة
     elif page == "ترانسبوز المصفوفة":
@@ -539,7 +542,8 @@ try:
             if isinstance(result, str):
                 st.error(result)
             else:
-                st.text(format_matrix(result))
+                # st.text(format_matrix(result))
+                st.markdown(format_matrix(result), unsafe_allow_html=true)
             
     # صفحة عكس المصفوفة
     elif page == "عكس المصفوفة":
@@ -576,9 +580,11 @@ try:
             solution_text, inverse_matrix = invert_matrix(matrix)
             st.subheader("الناتج:")
             if inverse_matrix is not None:
-                st.text(solution_text)
+                # st.text(solution_text)
+                st.markdown(solution_text, unsafe_allow_html=true)
                 st.text("المصفوفة المعكوسة:")
-                st.text(format_matrix(inverse_matrix))
+                # st.text(format_matrix(inverse_matrix))
+                st.markdown(format_matrix(inverse_matrix), unsafe_allow_html=true)
             else:
                 st.error(solution_text)
 except Exception as e:
