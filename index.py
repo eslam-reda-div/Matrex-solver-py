@@ -361,9 +361,9 @@ try:
                 if "خطأ" in solution_text:
                     st.error(solution_text)
                 else:
-                    st.markdown(solution_text, unsafe_allow_html=true)
+                    st.markdown(solution_text, unsafe_allow_html=True)
             else:
-                st.markdown(solution_text, unsafe_allow_html=true)
+                st.markdown(solution_text, unsafe_allow_html=True)
 
     # صفحة جمع المصفوفات
     elif page == "جمع المصفوفات":
@@ -409,7 +409,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=true)
+                st.markdown(format_matrix(result), unsafe_allow_html=True)
 
     # صفحة طرح المصفوفات
     elif page == "طرح المصفوفات":
@@ -455,7 +455,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=true)
+                st.markdown(format_matrix(result), unsafe_allow_html=True)
 
     # صفحة ضرب المصفوفات
     elif page == "ضرب المصفوفات":
@@ -508,7 +508,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=true)
+                st.markdown(format_matrix(result), unsafe_allow_html=True)
                 
     # صفحة ترانسبوز المصفوفة
     elif page == "ترانسبوز المصفوفة":
@@ -543,7 +543,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=true)
+                st.markdown(format_matrix(result), unsafe_allow_html=True)
             
     # صفحة عكس المصفوفة
     elif page == "عكس المصفوفة":
@@ -581,10 +581,10 @@ try:
             st.subheader("الناتج:")
             if inverse_matrix is not None:
                 # st.text(solution_text)
-                st.markdown(solution_text, unsafe_allow_html=true)
+                st.markdown(solution_text, unsafe_allow_html=True)
                 st.text("المصفوفة المعكوسة:")
                 # st.text(format_matrix(inverse_matrix))
-                st.markdown(format_matrix(inverse_matrix), unsafe_allow_html=true)
+                st.markdown(format_matrix(inverse_matrix), unsafe_allow_html=True)
             else:
                 st.error(solution_text)
 except Exception as e:
