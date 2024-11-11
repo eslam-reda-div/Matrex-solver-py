@@ -4,20 +4,20 @@ import numpy as np
 # دالة بتحول المصفوفة لنص منسق من غير أقواس زيادة 
 def format_matrix(matrix):
     try:
-        formatted_text = r"$$\begin{bmatrix}"
+        formatted_text = r"$$\begin{pmatrix}"
         for row in matrix:
             formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
-        formatted_text += r"\end{bmatrix}$$<br><br>"
+        formatted_text += r"\end{pmatrix}$$<br><br>"
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
 
 def format_matrix_sp(matrix):
     try:
-        formatted_text = r"\begin{bmatrix}"
+        formatted_text = r"\begin{pmatrix}"
         for row in matrix:
             formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
-        formatted_text += r"\end{bmatrix}"
+        formatted_text += r"\end{pmatrix}"
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
