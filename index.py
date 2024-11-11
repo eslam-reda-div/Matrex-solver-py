@@ -43,17 +43,17 @@ def solve_matrix(matrix):
         if rows == 0 or columns == 0:
             return "خطأ: المصفوفة فارغة."
 
-        solution_text = "حل النظام باستخدام تحويل الصفوف (Row Echelon Form):\n\n"
+        solution_text = "حل النظام باستخدام تحويل الصفوف (Row Echelon Form):<br><br>"
         leading_row = 0
 
         # بنشوف لو في صف كله اصفار والعنصر الاخير مش صفر يبقى مفيش حل
         for i in range(rows):
             if np.all(matrix[i, :-1] == 0) and matrix[i, -1] != 0:
-                return "لا يوجد حل لأن النظام يحتوي على تناقض.\n", matrix
+                return "لا يوجد حل لأن النظام يحتوي على تناقض.<br>", matrix
 
         # بنتأكد ان عدد المعادلات مش اقل من عدد المتغيرات
         if rows < columns - 1:
-            return "النظام غير صالح لأنه يحتوي على عدد معادلات أقل من عدد المتغيرات.\n", matrix
+            return "النظام غير صالح لأنه يحتوي على عدد معادلات أقل من عدد المتغيرات.<br>", matrix
 
         # التحقق من وجود قيم غير محددة
         if np.any(np.isnan(matrix)) or np.any(np.isinf(matrix)):
@@ -71,8 +71,8 @@ def solve_matrix(matrix):
             # بنبدل الصفوف لو لازم
             if pivot_row != leading_row:
                 matrix[[leading_row, pivot_row]] = matrix[[pivot_row, leading_row]]
-                solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}\n"
-                solution_text += format_matrix(matrix) + "\n"
+                solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}<br>"
+                solution_text += format_matrix(matrix) + "<br>"
 
             # بنقسم الصف على العنصر الرئيسي
             lead_element = matrix[leading_row, col]
@@ -80,16 +80,16 @@ def solve_matrix(matrix):
                 if abs(lead_element) < 1e-10:  # التحقق من القسمة على أرقام صغيرة جداً
                     return "خطأ: محاولة القسمة على رقم قريب جداً من الصفر."
                 matrix[leading_row] /= lead_element
-                solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f}\n"
-                solution_text += format_matrix(matrix) + "\n"
+                solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f}<br>"
+                solution_text += format_matrix(matrix) + "<br>"
 
             # بنطرح من باقي الصفوف
             for i in range(leading_row + 1, rows):
                 factor = matrix[i, col]
                 matrix[i] -= factor * matrix[leading_row]
                 if factor != 0:
-                    solution_text += f"تم طرح {factor:.2f} * الصف {leading_row + 1} من الصف {i + 1}\n"
-                    solution_text += format_matrix(matrix) + "\n"
+                    solution_text += f"تم طرح {factor:.2f} * الصف {leading_row + 1} من الصف {i + 1}<br>"
+                    solution_text += format_matrix(matrix) + "<br>"
 
             leading_row += 1
 
@@ -110,9 +110,9 @@ def solve_matrix(matrix):
             return "خطأ: الحل يحتوي على قيم غير صالحة (NaN أو Inf)."
 
         # بنكتب الحلول النهائية
-        solution_text += "\nالحلول النهائية:\n"
+        solution_text += "<br>الحلول النهائية:<br>"
         for index, sol in enumerate(solutions):
-            solution_text += f"x{index + 1} = {sol:.2f}\n"
+            solution_text += f"x{index + 1} = {sol:.2f}<br>"
 
         return solution_text
     except np.linalg.LinAlgError:
@@ -242,7 +242,7 @@ def invert_matrix(matrix):
 
         # بنعمل المصفوفة المعززة (المصفوفة الاصلية + مصفوفة الوحدة)
         augmented_matrix = np.hstack((matrix, np.eye(rows)))
-        solution_text = "عكس المصفوفة باستخدام Gauss-Jordan Elimination:\n\n"
+        solution_text = "عكس المصفوفة باستخدام Gauss-Jordan Elimination:<br><br>"
 
         # بنطبق عمليات الصفوف
         leading_row = 0
@@ -257,8 +257,8 @@ def invert_matrix(matrix):
             # بنبدل الصفوف لو لازم
             if pivot_row != leading_row:
                 augmented_matrix[[leading_row, pivot_row]] = augmented_matrix[[pivot_row, leading_row]]
-                solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}\n"
-                solution_text += format_matrix_2(augmented_matrix) + "\n"
+                solution_text += f"تم تبديل الصف {leading_row + 1} مع الصف {pivot_row + 1}<br>"
+                solution_text += format_matrix_2(augmented_matrix) + "<br>"
 
             # بنقسم الصف على العنصر الرئيسي
             lead_element = augmented_matrix[leading_row, col]
@@ -267,8 +267,8 @@ def invert_matrix(matrix):
 
             if lead_element != 0:
                 augmented_matrix[leading_row] /= lead_element
-                solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f}\n"
-                solution_text += format_matrix_2(augmented_matrix) + "\n"
+                solution_text += f"تم قسمة جميع عناصر الصف {leading_row + 1} على {lead_element:.2f}<br>"
+                solution_text += format_matrix_2(augmented_matrix) + "<br>"
 
             # بنطرح من باقي الصفوف
             for i in range(rows):
@@ -276,8 +276,8 @@ def invert_matrix(matrix):
                     factor = augmented_matrix[i, col]
                     augmented_matrix[i] -= factor * augmented_matrix[leading_row]
                     if factor != 0:
-                        solution_text += f"تم طرح {factor:.2f} مضروب في الصف {leading_row + 1} من الصف {i + 1}\n"
-                        solution_text += format_matrix_2(augmented_matrix) + "\n"
+                        solution_text += f"تم طرح {factor:.2f} مضروب في الصف {leading_row + 1} من الصف {i + 1}<br>"
+                        solution_text += format_matrix_2(augmented_matrix) + "<br>"
 
             leading_row += 1
             if leading_row == rows:
