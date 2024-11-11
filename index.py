@@ -7,7 +7,7 @@ def format_matrix(matrix):
         formatted_text = r"$$\begin{bmatrix}"
         for row in matrix:
             formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
-        formatted_text += r"\end{bmatrix}$$"
+        formatted_text += r"\end{bmatrix}$$<br><br>"
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
@@ -24,7 +24,7 @@ def format_matrix_2(matrix):
         for row in matrix:
             formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
         
-        formatted_text += r"\end{array}$$"
+        formatted_text += r"\end{array}$$<br><br>"
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
