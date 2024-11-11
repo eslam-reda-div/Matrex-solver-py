@@ -12,6 +12,16 @@ def format_matrix(matrix):
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
 
+def format_matrix_sp(matrix):
+    try:
+        formatted_text = r"\begin{bmatrix}"
+        for row in matrix:
+            formatted_text += " & ".join(f"{elem:.2f}" for elem in row) + r" \\ "
+        formatted_text += r"\end{bmatrix}"
+        return formatted_text
+    except Exception as e:
+        return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
+
 # دالة بتحول المصفوفة لنص منسق وبتحط خط عمودي في النص
 def format_matrix_2(matrix):
     try:
@@ -28,6 +38,7 @@ def format_matrix_2(matrix):
         return formatted_text
     except Exception as e:
         return f"حدث خطأ في تنسيق المصفوفة: {str(e)}"
+
 
 # دالة بتحل النظام باستخدام طريقة الصفوف المتدرجة
 def solve_matrix(matrix):
@@ -409,7 +420,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=True)
+                st.latex(format_matrix_sp(result))
 
     # صفحة طرح المصفوفات
     elif page == "طرح المصفوفات":
@@ -455,7 +466,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=True)
+                st.latex(format_matrix_sp(result))
 
     # صفحة ضرب المصفوفات
     elif page == "ضرب المصفوفات":
@@ -508,7 +519,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=True)
+                st.latex(format_matrix_sp(result))
                 
     # صفحة ترانسبوز المصفوفة
     elif page == "ترانسبوز المصفوفة":
@@ -543,7 +554,7 @@ try:
                 st.error(result)
             else:
                 # st.text(format_matrix(result))
-                st.markdown(format_matrix(result), unsafe_allow_html=True)
+                st.latex(format_matrix_sp(result))
             
     # صفحة عكس المصفوفة
     elif page == "عكس المصفوفة":
@@ -584,7 +595,7 @@ try:
                 st.markdown(solution_text, unsafe_allow_html=True)
                 st.text("المصفوفة المعكوسة:")
                 # st.text(format_matrix(inverse_matrix))
-                st.markdown(format_matrix(inverse_matrix), unsafe_allow_html=True)
+                st.latex(format_matrix_sp(inverse_matrix))
             else:
                 st.error(solution_text)
 except Exception as e:
